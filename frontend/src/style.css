@@ -1,0 +1,185 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+.registration-part .css-mhc70k-MuiGrid-root > .MuiGrid-item {
+  padding: 0px !important;
+}
+.registration-part .box {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 70px;
+}
+
+.registration-part h2 {
+  font-family: "Nunito", sans-serif;
+  font-size: 35px;
+  font-weight: 700;
+  color: #11175d;
+  margin: 0;
+  margin-top: 225px;
+}
+
+.registration-part p {
+  font-family: "Nunito", sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  color: #11175d;
+  margin: 0;
+}
+
+.registration-part .MuiFormHelperText-root {
+  color: red;
+  font-size: 14px;
+}
+
+/* .registration-part button {
+  margin-top: 40px;
+} */
+.login-part button {
+  margin-top: 40px;
+  background: red;
+}
+
+.registration-part .msg {
+  font-size: 13px;
+  margin-top: 35px;
+}
+
+.login-part .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.23);
+  border-radius: 0;
+}
+
+.registration-part .loginoption {
+  display: flex;
+}
+
+.registration-part .option {
+  padding: 20px 40px;
+  padding-left: 92px;
+  border: 1px solid rgba(3, 1, 76, 0.099);
+  margin-right: 20px;
+  border-radius: 9px;
+  margin-top: 30px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+}
+
+.registration-part .option img {
+  position: absolute;
+  top: 18px;
+  left: 54px;
+}
+
+.registration-part .option {
+  cursor: pointer;
+}
+
+.registration-part .msg a {
+  display: inline-block;
+  color: #ea6c00;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Open Sans", sans-serif;
+  text-decoration: none;
+}
+
+.registration-part .eye {
+  position: relative;
+  width: 355px;
+}
+
+.registration-part .eyeicon {
+  position: absolute;
+  right: 0;
+  bottom: 17px;
+}
+
+.registration-part .css-1a1lkbh-MuiPaper-root-MuiAlert-root {
+  width: 325px;
+}
+
+.leftbar {
+  width: 186px;
+  height: 100vh;
+  background: #5f35f5;
+  margin: 35px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.leftbar .profilepic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 38px;
+}
+
+.leftbar li {
+  margin-top: 67px;
+  width: 90%;
+  margin-left: auto;
+  padding: 20px 0;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  position: relative;
+}
+
+.leftbar li::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background: #5f35f5;
+  content: "";
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.leftbar .active {
+  background: #fff;
+}
+
+.leftbar .icon {
+  font-size: 45px;
+  color: #bad1ff;
+  margin-left: -25px;
+}
+
+.leftbar .active .icon {
+  color: #5f35f5;
+}
+
+.leftbar h5 {
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.leftbar-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftbarbox {
+  width: 500px;
+  height: 400px;
+  background-color: #bad1ff;
+}
