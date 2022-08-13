@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 ol,
@@ -182,4 +182,125 @@ ul {
   width: 500px;
   height: 400px;
   background-color: #bad1ff;
+}
+
+.search {
+  margin-top: 35px;
+  position: relative;
+}
+
+.search input {
+  width: 100%;
+  padding: 17px 78px;
+  box-sizing: border-box;
+  border: 0 !important;
+  border-radius: 20px !important;
+
+  -webkit-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
+}
+
+.search .search-icon {
+  position: absolute;
+  top: 35%;
+  transform: translate(-50%);
+  left: 23px;
+  font-size: 20px;
+}
+
+.search .menu {
+  position: absolute;
+  top: 35%;
+  transform: translate(-50%);
+  right: 23px;
+  font-size: 20px;
+  color: #5f35f5;
+}
+
+.group-list {
+  width: 100%;
+  padding: 17px 78px;
+  box-sizing: border-box;
+  border: 0 !important;
+  border-radius: 20px !important;
+
+  -webkit-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
+  height: 380px;
+  overflow-y: scroll;
+  margin-top: 43px;
+}
+
+.friend-list {
+  height: 890px;
+  padding: 17px 30px;
+}
+
+.group-list h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.group-list .box {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0.23);
+  padding-bottom: 13px;
+  margin-top: 17px;
+}
+
+.group-list .box h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+.group-list .box h4 {
+  font-family: "popins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4d4d4dc1;
+}
+
+.group-list .box:last-child {
+  border: 0;
+}
+
+.group-list .box .img img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+}
+
+.group-list .box .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.friend-list .box .button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.user-list .box .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.friend-list .box .button p {
+  font-family: "popins", sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.group-list .box .button button {
+  background: #5f35f5;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: 0;
 }
