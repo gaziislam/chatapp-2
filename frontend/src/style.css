@@ -159,6 +159,13 @@ ul {
   color: #bad1ff;
   margin-left: -25px;
 }
+.leftbar .logout :hover {
+  font-size: 55px;
+  color: #fff;
+  margin-left: -25px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
 
 .leftbar .active .icon {
   color: #5f35f5;

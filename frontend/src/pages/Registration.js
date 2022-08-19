@@ -15,8 +15,11 @@ import {
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth"
+import { getDatabase, ref, set } from "firebase/database"
 
 const Registration = () => {
+  // Firebase database read and write data
+  const db = getDatabase()
   //Authentication (Class 25 part2)
   const auth = getAuth()
   const [open, setOpen] = React.useState(false)
@@ -69,6 +72,10 @@ const Registration = () => {
             })
               .then(() => {
                 console.log("User name updated successfully")
+                set(ref(db, "users/" + auth.currentUser.uid), {
+                  username: name,
+                  email: email,
+                })
               })
               .catch((error) => {
                 console.log(error)

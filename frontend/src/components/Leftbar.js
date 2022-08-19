@@ -65,7 +65,7 @@ const Leftbar = (props) => {
           <li className={props.active == "settings" && "active"}>
             <FiSettings className="icon" />
           </li>
-          <li onClick={handleSignout}>
+          <li className="logout" onClick={handleSignout}>
             <RiLogoutBoxRLine className="icon" />
           </li>
         </ul>
