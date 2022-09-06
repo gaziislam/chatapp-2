@@ -41,7 +41,7 @@ const Leftbar = (props) => {
       setName(user.displayName)
 
       if (user) {
-        console.log(user)
+        // console.log(user)
       }
     })
   }, [])

@@ -281,6 +281,12 @@ ul {
   border-radius: 50px;
 }
 
+.group-list .name {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .group-list .box .button {
   display: flex;
   justify-content: center;
