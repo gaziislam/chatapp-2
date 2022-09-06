@@ -14,28 +14,18 @@ const UserList = () => {
     console.log("check the list")
     let userArr = []
     const userRef = ref(db, "users/")
-    console.log(useArr)
-
     onValue(userRef, (snapshot) => {
       console.log("abc", snapshot)
-      // User list not updating
-
-      userArr.push(
-        item.val({
-          username: item.val().username,
-          email: item.val().email,
-          id: item.key,
-        })
-      )
-      // snapshot.forEach((item) => {
-      //   userArr.push(
-      //     item.val({
-      //       username: item.val().username,
-      //       email: item.val().email,
-      //       id: item.key,
-      //     })
-      //   )
-      // })
+      snapshot.forEach((item) => {
+        console.log("crrayhecka", item)
+        userArr.push(
+          item.val({
+            username: item.val().username,
+            email: item.val().email,
+            id: item.key,
+          })
+        )
+      })
       setUserlist(userArr)
     })
   }, [])
