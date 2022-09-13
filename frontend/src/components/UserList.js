@@ -12,10 +12,11 @@ const UserList = () => {
 
   useEffect(() => {
     console.log("check the list")
+
     let userArr = []
     const userRef = ref(db, "users/")
     onValue(userRef, (snapshot) => {
-      console.log("abc", snapshot)
+      // console.log("abc", snapshot)
       snapshot.forEach((item) => {
         console.log("crrayhecka", item)
         userArr.push(
