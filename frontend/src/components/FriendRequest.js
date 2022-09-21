@@ -7,54 +7,81 @@ const FriendRequest = () => {
   //
   const db = getDatabase()
   const auth = getAuth()
-  let [friendRequest, setFriendRequest] = useState([]) //([]) state becomes an arrey
+  // let [friendRequest, setFriendRequest] = useState([]) //([]) state becomes an arrey
+  const [friendReq, setFriendReq] = useState([])
+  const [errMsg, setErrmsg] = useState("")
 
-  console.log(friendRequest)
+  // console.log(friendReq)
+
+  // console.log(friendRequest)
+
+  // useEffect(() => {
+  //   let friendRequestArr = []
+  //   // console.log("my array", friendRequestArr)
+  //   const friendRequestRef = ref(db, "friendrequest/")
+  //   onValue(friendRequestRef, (snapshot) => {
+  //     const data = snapshot.val() // check this
+  //     snapshot.forEach((item) => {
+  //       // console.log("item.reciverid", item.reciverid)
+  //       // console.log("auth.currentUser.uid", auth.currentUser.uid)
+  //       //
+  //       if (item.val().reciverid == auth.currentUser.uid) {
+  //         friendRequestArr.push({
+  //           name: item.val().name,
+  //           receiverid: item.val().receiverid,
+  //           senderid: item.val().senderid,
+  //         })
+  //       }
+  //     })
+  //     setFriendRequest(friendRequestArr)
+  //   })
+  // }, [])
 
   useEffect(() => {
-    let friendRequestArr = []
-    // console.log("my array", friendRequestArr)
-    const friendRequestRef = ref(db, "friendrequest/")
-    onValue(friendRequestRef, (snapshot) => {
-      const data = snapshot.val() // check this
+    const starCountRef = ref(db, "friendrequest/")
+    onValue(starCountRef, (snapshot) => {
+      const userArr = []
+
       snapshot.forEach((item) => {
-        // console.log("item.reciverid", item.reciverid)
-        // console.log("auth.currentUser.uid", auth.currentUser.uid)
-        //
-        if (item.val().reciverid == auth.currentUser.uid) {
-          friendRequestArr.push({
+        if (item.val().receiverid == auth.currentUser.uid) {
+          userArr.push({
             name: item.val().name,
-            reciverid: item.val().reciverid,
+            receiverid: item.val.receiverid,
             senderid: item.val().senderid,
           })
+        } else {
+          setErrmsg("No Friend Request")
         }
       })
-      setFriendRequest(friendRequestArr)
+      setFriendReq(userArr)
     })
   }, [])
 
   return (
     <div>
-      {" "}
       <div className="group-list">
         <h2>Friend Request</h2>
-        {friendRequest.map((item) => (
-          <div className="box">
-            <div className="img">
-              <img src="assets/images/friend-request.jpg" alt="" />
-            </div>
-            <div className="name">
-              <h1> {item.name} </h1>
-              <h4>Hi Guys, Wassup!</h4>
-            </div>
-            <div className="button">
-              <button>Accept</button>
-            </div>
-          </div>
-        ))}
-        {friendRequest.length == 0 && (
+
+        {friendReq.map(
+          (item, index) =>
+            auth.currentUser.uid !== item.senderid && (
+              <div className="box" key={index}>
+                <div className="img">
+                  <img src="assets/images/friend-request.jpg" alt="" />
+                </div>
+                <div className="name">
+                  <h1> {item.name} </h1>
+                  <h4> {item.email} </h4>
+                </div>
+                <div className="button">
+                  <button>Accept</button>
+                </div>
+              </div>
+            )
+        )}
+        {friendReq.length == 0 && (
           <Alert style={{ marginTop: "50px" }} severity="info">
-            No Friend Request
+            {errMsg}
           </Alert>
         )}
       </div>

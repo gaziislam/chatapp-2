@@ -6,40 +6,65 @@ import { getAuth } from "firebase/auth"
 const UserList = () => {
   const auth = getAuth()
   const db = getDatabase()
-  // console.log(auth.currentUser)
 
   let [userlist, setUserlist] = useState([])
 
   useEffect(() => {
-    console.log("check the list")
-
-    let userArr = []
-    const userRef = ref(db, "users/")
-    onValue(userRef, (snapshot) => {
-      // console.log("abc", snapshot)
+    const userlistRef = ref(db, "users/")
+    onValue(userlistRef, (snapshot) => {
+      let userArr = []
       snapshot.forEach((item) => {
-        console.log("crrayhecka", item)
-        userArr.push(
-          item.val({
-            username: item.val().username,
-            email: item.val().email,
-            id: item.key,
-          })
-        )
+        userArr.push({
+          name: item.val().username,
+          email: item.val().email,
+          userid: item.key,
+        })
       })
       setUserlist(userArr)
     })
   }, [])
 
-  let handleFriendRequest = (info) => {
-    set(push(ref(db, "friendrequest/")), {
-      name: info.username,
-      reciverid: info.id,
-      senderid: auth.currentUser.uid,
-    })
-    console.log("click", info)
+  // useEffect(() => {
+  //   console.log("check the list")
 
-    console.log("user name check", info.username)
+  //   let userArr = []
+  //   const userRef = ref(db, "users/")
+  //   onValue(userRef, (snapshot) => {
+  //     // console.log("abc", snapshot)
+  //     snapshot.forEach((item) => {
+  //       console.log("crrayhecka", item)
+  //       userArr.push(
+  //         item.val({
+  //           username: item.val().username,
+  //           email: item.val().email,
+  //           id: item.key,
+  //         })
+  //       )
+  //     })
+  //     setUserlist(userArr)
+  //   })
+  // }, [])
+
+  // let handleFriendRequest = (info) => {
+  //   set(push(ref(db, "friendrequest/")), {
+  //     name: info.username,
+  //     reciverid: info.id,
+  //     senderid: auth.currentUser.uid,
+  //   })
+  //   console.log("click", info)
+
+  //   console.log("user name check", info.username)
+  // }
+
+  let handleFriendRequest = (info) => {
+    // console.log(info)
+    let friendReqRef = push(ref(db, "friendrequest/"))
+    set(friendReqRef, {
+      name: auth.currentUser.displayName,
+      receiverid: info.userid,
+      senderid: auth.currentUser.uid,
+      email: info.email,
+    })
   }
 
   return (
@@ -48,15 +73,14 @@ const UserList = () => {
 
       {userlist.map(
         (item) =>
-          auth.currentUser.uid !== item.id && (
+          auth.currentUser.uid !== item.userid && (
             <div className="box">
               <div className="img">
                 <img src="assets/images/group1.jpg" alt="" />
               </div>
               <div className="name">
-                <h1>{item.username}</h1>
+                <h1>{item.name}</h1>
                 <h4>{item.email}</h4>
-                <h4>{item.id}</h4>
               </div>
               <div className="button">
                 <button onClick={() => handleFriendRequest(item)}>+</button>

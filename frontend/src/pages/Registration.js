@@ -18,10 +18,10 @@ import {
 import { getDatabase, ref, set } from "firebase/database"
 
 const Registration = () => {
+  const auth = getAuth()
   // Firebase database read and write data
   const db = getDatabase()
   //Authentication (Class 25 part2)
-  const auth = getAuth()
   const [open, setOpen] = React.useState(false)
   let navigate = useNavigate()
   // All the states
