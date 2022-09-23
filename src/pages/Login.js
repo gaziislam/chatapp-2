@@ -36,7 +36,6 @@ const Login = () => {
   let [wrongpassworderr, setWrongpassworderr] = useState("")
 
   const handleSubmit = () => {
-    console.log("password", password.length)
     if (!email) {
       setEmailerr("Please enter An email")
     } else if (!password) {
@@ -49,7 +48,6 @@ const Login = () => {
       setPasswordlengtherr("")
       signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
-          console.log(user)
           nevigate("/home")
         })
         .catch((error) => {

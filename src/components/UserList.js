@@ -2,12 +2,16 @@ import React from "react"
 import { useEffect, useState } from "react"
 import { getDatabase, set, ref, onValue, push } from "firebase/database"
 import { getAuth } from "firebase/auth"
+import DoneAllIcon from "@mui/icons-material/DoneAll"
+import AddCommentIcon from "@mui/icons-material/AddComment"
 
 const UserList = () => {
   const auth = getAuth()
   const db = getDatabase()
 
   let [userlist, setUserlist] = useState([])
+  const [friendReq, setFriendReq] = useState([])
+  const [friendReqSecond, setFriendReqSecond] = useState([])
 
   useEffect(() => {
     const userlistRef = ref(db, "users/")
@@ -21,6 +25,20 @@ const UserList = () => {
         })
       })
       setUserlist(userArr)
+    })
+  }, [])
+
+  useEffect(() => {
+    const starCountRef = ref(db, "friendrequest/")
+    onValue(starCountRef, (snapshot) => {
+      const userArr = []
+      // const userArrSecond = []
+
+      snapshot.forEach((item) => {
+        userArr.push(item.val().receiverid + item.val().senderid)
+      })
+      setFriendReq(userArr)
+      // setFriendReqSecond(userArrSecond)
     })
   }, [])
 
@@ -82,9 +100,21 @@ const UserList = () => {
                 <h1>{item.name}</h1>
                 <h4>{item.email}</h4>
               </div>
-              <div className="button">
-                <button onClick={() => handleFriendRequest(item)}>+</button>
-              </div>
+
+              {friendReq.includes(item.userid + auth.currentUser.uid) ||
+              friendReq.includes(auth.currentUser.uid + item.userid) ? (
+                <div className="button">
+                  <button>
+                    <DoneAllIcon />
+                  </button>
+                </div>
+              ) : (
+                <div className="button">
+                  <button onClick={() => handleFriendRequest(item)}>
+                    <AddCommentIcon />
+                  </button>
+                </div>
+              )}
             </div>
           )
       )}

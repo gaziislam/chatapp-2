@@ -46,7 +46,7 @@ const FriendRequest = () => {
         if (item.val().receiverid == auth.currentUser.uid) {
           userArr.push({
             name: item.val().name,
-            receiverid: item.val.receiverid,
+            receiverid: item.val().receiverid,
             senderid: item.val().senderid,
           })
         } else {

@@ -19,7 +19,6 @@ const Home = () => {
       //! To check if the user is loged in, vedio 26(13:00min)
 
       if (user) {
-        console.log(user)
         setEmailVerify(user.emailVerified)
       } else {
         navigate("/login")
