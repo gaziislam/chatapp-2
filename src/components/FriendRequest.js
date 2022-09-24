@@ -9,7 +9,6 @@ const FriendRequest = () => {
   const auth = getAuth()
   // let [friendRequest, setFriendRequest] = useState([]) //([]) state becomes an arrey
   const [friendReq, setFriendReq] = useState([])
-  const [errMsg, setErrmsg] = useState("")
 
   useEffect(() => {
     const starCountRef = ref(db, "friendrequest/")
@@ -23,8 +22,6 @@ const FriendRequest = () => {
             receiverid: item.val().receiverid,
             senderid: item.val().senderid,
           })
-        } else {
-          setErrmsg("No Friend Request")
         }
       })
       setFriendReq(userArr)
@@ -61,7 +58,7 @@ const FriendRequest = () => {
         )}
         {friendReq.length == 0 && (
           <Alert style={{ marginTop: "50px" }} severity="info">
-            {errMsg}
+            No Friend Request
           </Alert>
         )}
       </div>
