@@ -11,32 +11,6 @@ const FriendRequest = () => {
   const [friendReq, setFriendReq] = useState([])
   const [errMsg, setErrmsg] = useState("")
 
-  // console.log(friendReq)
-
-  // console.log(friendRequest)
-
-  // useEffect(() => {
-  //   let friendRequestArr = []
-  //   // console.log("my array", friendRequestArr)
-  //   const friendRequestRef = ref(db, "friendrequest/")
-  //   onValue(friendRequestRef, (snapshot) => {
-  //     const data = snapshot.val() // check this
-  //     snapshot.forEach((item) => {
-  //       // console.log("item.reciverid", item.reciverid)
-  //       // console.log("auth.currentUser.uid", auth.currentUser.uid)
-  //       //
-  //       if (item.val().reciverid == auth.currentUser.uid) {
-  //         friendRequestArr.push({
-  //           name: item.val().name,
-  //           receiverid: item.val().receiverid,
-  //           senderid: item.val().senderid,
-  //         })
-  //       }
-  //     })
-  //     setFriendRequest(friendRequestArr)
-  //   })
-  // }, [])
-
   useEffect(() => {
     const starCountRef = ref(db, "friendrequest/")
     onValue(starCountRef, (snapshot) => {
@@ -57,6 +31,10 @@ const FriendRequest = () => {
     })
   }, [])
 
+  let handleAcceptFriend = (friend) => {
+    console.log(friend)
+  }
+
   return (
     <div>
       <div className="group-list">
@@ -74,7 +52,9 @@ const FriendRequest = () => {
                   <h4> {item.email} </h4>
                 </div>
                 <div className="button">
-                  <button>Accept</button>
+                  <button onClick={() => handleAcceptFriend(item)}>
+                    Accept
+                  </button>
                 </div>
               </div>
             )
