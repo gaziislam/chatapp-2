@@ -42,46 +42,14 @@ const UserList = () => {
     })
   }, [])
 
-  // useEffect(() => {
-  //   console.log("check the list")
-
-  //   let userArr = []
-  //   const userRef = ref(db, "users/")
-  //   onValue(userRef, (snapshot) => {
-  //     // console.log("abc", snapshot)
-  //     snapshot.forEach((item) => {
-  //       console.log("crrayhecka", item)
-  //       userArr.push(
-  //         item.val({
-  //           username: item.val().username,
-  //           email: item.val().email,
-  //           id: item.key,
-  //         })
-  //       )
-  //     })
-  //     setUserlist(userArr)
-  //   })
-  // }, [])
-
-  // let handleFriendRequest = (info) => {
-  //   set(push(ref(db, "friendrequest/")), {
-  //     name: info.username,
-  //     reciverid: info.id,
-  //     senderid: auth.currentUser.uid,
-  //   })
-  //   console.log("click", info)
-
-  //   console.log("user name check", info.username)
-  // }
-
   let handleFriendRequest = (info) => {
-    // console.log(info)
+    console.log(info)
     let friendReqRef = push(ref(db, "friendrequest/"))
     set(friendReqRef, {
-      name: auth.currentUser.displayName,
+      receivername: info.name,
       receiverid: info.userid,
       senderid: auth.currentUser.uid,
-      email: info.email,
+      sendername: auth.currentUser.displayName,
     })
   }
 
