@@ -46,10 +46,10 @@ const UserList = () => {
     console.log(info)
     let friendReqRef = push(ref(db, "friendrequest/"))
     set(friendReqRef, {
-      receivername: info.name,
       receiverid: info.userid,
       senderid: auth.currentUser.uid,
       sendername: auth.currentUser.displayName,
+      receivername: info.name,
     })
   }
 

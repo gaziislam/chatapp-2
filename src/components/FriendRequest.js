@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getDatabase, ref, onValue } from "firebase/database"
+import { getDatabase, set, ref, onValue, push, remove } from "firebase/database"
 import { getAuth } from "firebase/auth"
 import { Alert } from "@mui/material"
 
@@ -7,8 +7,9 @@ const FriendRequest = () => {
   //
   const db = getDatabase()
   const auth = getAuth()
-  // let [friendRequest, setFriendRequest] = useState([]) //([]) state becomes an arrey
+  //([]) state becomes an arrey
   const [friendReq, setFriendReq] = useState([])
+  const [dlt, setDlt] = useState(true)
 
   useEffect(() => {
     const starCountRef = ref(db, "friendrequest/")
@@ -18,18 +19,31 @@ const FriendRequest = () => {
       snapshot.forEach((item) => {
         if (item.val().receiverid == auth.currentUser.uid) {
           userArr.push({
-            name: item.val().name,
+            id: item.key,
+            receivername: item.val().receivername,
             receiverid: item.val().receiverid,
             senderid: item.val().senderid,
+            sendername: item.val().sendername,
           })
         }
       })
       setFriendReq(userArr)
     })
-  }, [])
+  }, [dlt])
 
   let handleAcceptFriend = (friend) => {
     console.log(friend)
+    set(push(ref(db, "friends")), {
+      id: friend.id,
+      receivername: friend.receivername,
+      receiverid: friend.receiverid,
+      senderid: friend.senderid,
+      sendername: friend.sendername,
+    }).then(() => {
+      remove(ref(db, "friendrequest/" + friend.id)).then(() => {
+        setDlt(!dlt)
+      })
+    })
   }
 
   return (
@@ -45,7 +59,7 @@ const FriendRequest = () => {
                   <img src="assets/images/friend-request.jpg" alt="" />
                 </div>
                 <div className="name">
-                  <h1> {item.name} </h1>
+                  <h1> {item.sendername} </h1>
                   <h4> {item.email} </h4>
                 </div>
                 <div className="button">
