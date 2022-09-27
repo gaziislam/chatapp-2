@@ -32,7 +32,6 @@ const FriendRequest = () => {
   }, [dlt])
 
   let handleAcceptFriend = (friend) => {
-    console.log(friend)
     set(push(ref(db, "friends")), {
       id: friend.id,
       receivername: friend.receivername,
