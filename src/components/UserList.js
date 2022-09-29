@@ -11,7 +11,7 @@ const UserList = () => {
 
   let [userlist, setUserlist] = useState([])
   const [friendReq, setFriendReq] = useState([])
-  const [friendReqSecond, setFriendReqSecond] = useState([])
+  const [friend, setFriend] = useState([])
 
   useEffect(() => {
     const userlistRef = ref(db, "users/")
@@ -29,16 +29,26 @@ const UserList = () => {
   }, [])
 
   useEffect(() => {
-    const starCountRef = ref(db, "friendrequest/")
-    onValue(starCountRef, (snapshot) => {
+    const friendRequestRef = ref(db, "friendrequest/")
+    onValue(friendRequestRef, (snapshot) => {
       const userArr = []
-      // const userArrSecond = []
 
       snapshot.forEach((item) => {
         userArr.push(item.val().receiverid + item.val().senderid)
       })
       setFriendReq(userArr)
-      // setFriendReqSecond(userArrSecond)
+    })
+  }, [])
+
+  useEffect(() => {
+    const friendsRef = ref(db, "friends/")
+    onValue(friendsRef, (snapshot) => {
+      const friendArr = []
+
+      snapshot.forEach((item) => {
+        friendArr.push(item.val().receiverid + item.val().senderid)
+      })
+      setFriend(friendArr)
     })
   }, [])
 
@@ -69,8 +79,11 @@ const UserList = () => {
                 <h4>{item.email}</h4>
               </div>
 
-              {friendReq.includes(item.userid + auth.currentUser.uid) ||
-              friendReq.includes(auth.currentUser.uid + item.userid) ? (
+              {friend.includes(item.userid + auth.currentUser.uid) ||
+              friend.includes(auth.currentUser.uid + item.userid) ? (
+                ""
+              ) : friendReq.includes(item.userid + auth.currentUser.uid) ||
+                friendReq.includes(auth.currentUser.uid + item.userid) ? (
                 <div className="button">
                   <button>
                     <DoneAllIcon />
