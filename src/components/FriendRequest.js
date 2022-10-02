@@ -38,6 +38,9 @@ const FriendRequest = () => {
       receiverid: friend.receiverid,
       senderid: friend.senderid,
       sendername: friend.sendername,
+      date: `${
+        new Date().getMonth() + 1
+      }/${new Date().getDate()}/${new Date().getFullYear()}`,
     }).then(() => {
       remove(ref(db, "friendrequest/" + friend.id)).then(() => {
         setDlt(!dlt)

@@ -4,6 +4,7 @@ import { getDatabase, set, ref, onValue, push } from "firebase/database"
 import { getAuth } from "firebase/auth"
 import DoneAllIcon from "@mui/icons-material/DoneAll"
 import AddCommentIcon from "@mui/icons-material/AddComment"
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
 
 const UserList = () => {
   const auth = getAuth()
@@ -53,7 +54,6 @@ const UserList = () => {
   }, [])
 
   let handleFriendRequest = (info) => {
-    console.log(info)
     let friendReqRef = push(ref(db, "friendrequest/"))
     set(friendReqRef, {
       receiverid: info.userid,
@@ -81,7 +81,11 @@ const UserList = () => {
 
               {friend.includes(item.userid + auth.currentUser.uid) ||
               friend.includes(auth.currentUser.uid + item.userid) ? (
-                ""
+                <div className="button">
+                  <button onClick={() => handleFriendRequest(item)}>
+                    <PeopleAltIcon />
+                  </button>
+                </div>
               ) : friendReq.includes(item.userid + auth.currentUser.uid) ||
                 friendReq.includes(auth.currentUser.uid + item.userid) ? (
                 <div className="button">

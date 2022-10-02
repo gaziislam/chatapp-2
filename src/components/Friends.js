@@ -18,7 +18,6 @@ const Friends = () => {
       // const data = snapshot.val()
 
       snapshot.forEach((item) => {
-        console.log(item.val())
         if (
           auth.currentUser.uid == item.val().receiverid ||
           auth.currentUser.uid == item.val().senderid
@@ -35,7 +34,7 @@ const Friends = () => {
 
   return (
     <div className="group-list friend-list">
-      <h2>Friends</h2>
+      <h2>Friends ({friends.length}) </h2>
 
       {friends.length == 0 && (
         <Alert style={{ marginTop: "50px" }} severity="info">
@@ -57,7 +56,7 @@ const Friends = () => {
             <h4>Hi Guys, Wassup!</h4>
           </div>
           <div className="button">
-            <p>Today, 8:56pm</p>
+            <p>{item.date}</p>
           </div>
         </div>
       ))}
