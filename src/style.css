@@ -188,7 +188,8 @@ ul {
 .leftbarbox {
   width: 500px;
   height: 400px;
-  background-color: #bad1ff;
+  background-color: #fff;
+  padding: 50px;
 }
 
 .search {
@@ -317,4 +318,14 @@ ul {
   border-radius: 5px;
   border: 0;
   cursor: pointer;
+}
+
+.userinfo li {
+  border-bottom: 1px solid #5f35f5;
+  padding: 10px 0px;
+}
+
+.userinfo li span {
+  color: #5f35f5;
+  font-weight: bolder;
 }

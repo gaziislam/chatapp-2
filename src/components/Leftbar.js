@@ -15,7 +15,10 @@ const Leftbar = (props) => {
   const auth = getAuth()
 
   const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [id, setId] = useState("")
   const [open, setOpen] = useState(false)
+  const [createTime, setCreateTime] = useState(false)
 
   let handleClose = () => {
     setOpen(false)
@@ -38,10 +41,13 @@ const Leftbar = (props) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       //! To check if the user is loged in, vedio 26(13:00min)
-      setName(user.displayName)
 
       if (user) {
-        // console.log(user)
+        console.log(user)
+        setName(user.displayName)
+        setEmail(user.email)
+        setId(user.uid)
+        setCreateTime(user.metadata.creationTime)
       }
     })
   }, [])
@@ -80,10 +86,20 @@ const Leftbar = (props) => {
       >
         <Box className="leftbarbox">
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            Account Information
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <ul className="userinfo">
+              <li>
+                <span>Your ID:</span> {id}
+              </li>
+              <li>
+                <span>Your Email:</span> {email}
+              </li>
+              <li>
+                <span>Account Create Time:</span> {createTime}
+              </li>
+            </ul>
           </Typography>
         </Box>
       </Modal>
