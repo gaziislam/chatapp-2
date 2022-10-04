@@ -10,6 +10,19 @@ ul {
   list-style: none;
 }
 
+.dark {
+  background: #000;
+  color: rgb(200, 193, 193);
+}
+
+.dark h4 {
+  color: rgb(200, 193, 193) !important;
+}
+
+.light {
+  background: #fff;
+}
+
 .registration-part .css-mhc70k-MuiGrid-root > .MuiGrid-item {
   padding: 0px !important;
 }
@@ -328,4 +341,13 @@ ul {
 .userinfo li span {
   color: #5f35f5;
   font-weight: bolder;
+}
+
+.off,
+.on {
+  font-size: 50px;
+}
+
+.off {
+  color: #fff;
 }

@@ -43,7 +43,6 @@ const Leftbar = (props) => {
       //! To check if the user is loged in, vedio 26(13:00min)
 
       if (user) {
-        console.log(user)
         setName(user.displayName)
         setEmail(user.email)
         setId(user.uid)
