@@ -161,14 +161,61 @@ ul {
   margin: 35px;
   border-radius: 20px;
   text-align: center;
+  padding-top: 38px;
 }
 
-.leftbar .profilepic {
+.leftbar .profilepicbox {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
   margin-top: 38px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.leftbar .profilepic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.leftbar .profilepicbox .overlay {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.274);
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+
+.leftbar .profilepicbox:hover .overlay {
+  opacity: 1;
+}
+
+.leftbarbox .profilepicbox {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 38px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.leftbarbox .profilepic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .leftbar li {

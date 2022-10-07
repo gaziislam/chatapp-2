@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import { AiOutlineHome } from "react-icons/ai"
+import { AiOutlineHome, AiOutlineCloudUpload } from "react-icons/ai"
 import { TbMessageCircle } from "react-icons/tb"
 import { IoMdNotificationsOutline } from "react-icons/io"
 import { FiSettings } from "react-icons/fi"
@@ -18,6 +18,7 @@ const Leftbar = (props) => {
   const [email, setEmail] = useState("")
   const [id, setId] = useState("")
   const [open, setOpen] = useState(false)
+  const [open2, setOpen2] = useState(false)
   const [createTime, setCreateTime] = useState(false)
 
   let handleClose = () => {
@@ -25,6 +26,12 @@ const Leftbar = (props) => {
   }
   let handleModelOpen = () => {
     setOpen(true)
+  }
+  let handleClose2 = () => {
+    setOpen2(false)
+  }
+  let handleModelOpen2 = () => {
+    setOpen2(true)
   }
 
   let handleSignout = () => {
@@ -50,9 +57,21 @@ const Leftbar = (props) => {
       }
     })
   }, [])
+
+  console.log(auth.currentUser.photoURL)
+
   return (
     <div className="leftbar">
-      <img className="profilepic" src="assets/images/profile1.jpg" alt="" />
+      <div className="profilepicbox">
+        {!auth.currentUser.photoURL ? (
+          <img className="profilepic" src="assets/images/profile1.jpg" alt="" />
+        ) : (
+          <img className="profilepic" src="assets/images/profile1.jpg" alt="" />
+        )}
+        <div className="overlay" onClick={handleModelOpen2}>
+          <AiOutlineCloudUpload />
+        </div>
+      </div>
       <h5 onClick={handleModelOpen}> {name} </h5>
 
       <div className="icons">
@@ -99,6 +118,40 @@ const Leftbar = (props) => {
                 <span>Account Create Time:</span> {createTime}
               </li>
             </ul>
+          </Typography>
+        </Box>
+      </Modal>
+
+      {/* modal 2  omen2 */}
+
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="leftbar-modal"
+      >
+        <Box className="leftbarbox">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Change profile picture
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <div className="profilepicbox">
+              {!auth.currentUser.photoURL ? (
+                <img
+                  className="profilepic"
+                  src="assets/images/profile1.jpg"
+                  alt=""
+                />
+              ) : (
+                <img
+                  className="profilepic"
+                  src="assets/images/profile1.jpg"
+                  alt=""
+                />
+              )}
+            </div>
+            <input type="file" />
           </Typography>
         </Box>
       </Modal>
