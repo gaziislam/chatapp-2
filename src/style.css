@@ -180,6 +180,23 @@ ul {
   border-radius: 50%;
   object-fit: cover;
 }
+.img-preview {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 38px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* .img-preview img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50%;
+  object-fit: cover;
+} */
 
 .leftbar .profilepicbox .overlay {
   width: 100%;
@@ -277,7 +294,7 @@ ul {
 
 .leftbarbox {
   width: 500px;
-  height: 400px;
+  height: 500px;
   background-color: #fff;
   padding: 50px;
 }
@@ -427,4 +444,15 @@ ul {
 
 .off {
   color: #fff;
+}
+
+.leftbarbox button {
+  background: #5f35f5;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
 }

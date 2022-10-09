@@ -8,11 +8,20 @@ import { RiLogoutBoxRLine } from "react-icons/ri"
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth"
 import { Link, useNavigate } from "react-router-dom"
 import { Modal, Box, Typography } from "@mui/material"
+import Cropper from "react-cropper"
+import "cropperjs/dist/cropper.css"
 
 const Leftbar = (props) => {
   const nevigate = useNavigate()
 
   const auth = getAuth()
+
+  const defaultSrc =
+    "https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg"
+
+  const [image, setImage] = useState()
+  const [cropData, setCropData] = useState("#")
+  const [cropper, setCropper] = useState()
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -58,15 +67,35 @@ const Leftbar = (props) => {
     })
   }, [])
 
-  console.log(auth.currentUser.photoURL)
+  let handleProfileUplod = (e) => {
+    // console.log(e.target.files[0])
+    e.preventDefault()
+    let files
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files
+    } else if (e.target) {
+      files = e.target.files
+    }
+    const reader = new FileReader()
+    reader.onload = () => {
+      setImage(reader.result)
+    }
+    reader.readAsDataURL(files[0])
+  }
+
+  const getCropData = () => {
+    if (typeof cropper !== "undefined") {
+      console.log(cropper.getCroppedCanvas().toDataURL())
+    }
+  }
 
   return (
     <div className="leftbar">
       <div className="profilepicbox">
         {!auth.currentUser.photoURL ? (
-          <img className="profilepic" src="assets/images/profile1.jpg" alt="" />
+          <img className="profilepic" src="assets/images/avatar.svg" alt="" />
         ) : (
-          <img className="profilepic" src="assets/images/profile1.jpg" alt="" />
+          <img className="profilepic" src="assets/images/avatar.svg" alt="" />
         )}
         <div className="overlay" onClick={handleModelOpen2}>
           <AiOutlineCloudUpload />
@@ -122,7 +151,7 @@ const Leftbar = (props) => {
         </Box>
       </Modal>
 
-      {/* modal 2  omen2 */}
+      {/* modal 2  open2 */}
 
       <Modal
         open={open2}
@@ -138,20 +167,41 @@ const Leftbar = (props) => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <div className="profilepicbox">
               {!auth.currentUser.photoURL ? (
-                <img
-                  className="profilepic"
-                  src="assets/images/profile1.jpg"
-                  alt=""
-                />
+                image ? (
+                  <div className="img-preview"></div>
+                ) : (
+                  <img className="profilepic" src="assets/images/avatar.svg" />
+                )
               ) : (
-                <img
-                  className="profilepic"
-                  src="assets/images/profile1.jpg"
-                  alt=""
-                />
+                <img className="profilepic" src="assets/images/avatar.svg" />
               )}
             </div>
-            <input type="file" />
+
+            <input type="file" onChange={handleProfileUplod} />
+
+            <Cropper
+              style={{ height: 200, width: "50%" }}
+              zoomTo={0.5}
+              initialAspectRatio={1}
+              preview=".img-preview"
+              src={image}
+              viewMode={1}
+              minCropBoxHeight={10}
+              minCropBoxWidth={10}
+              background={false}
+              responsive={true}
+              autoCropArea={1}
+              checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+              onInitialized={(instance) => {
+                setCropper(instance)
+              }}
+              guides={true}
+            />
+            {/* crop button stert */}
+            {image && (
+              <button onClick={getCropData}>Upload profile picture</button>
+            )}
+            {/* crop button end */}
           </Typography>
         </Box>
       </Modal>
