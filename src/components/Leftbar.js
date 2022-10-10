@@ -5,7 +5,13 @@ import { TbMessageCircle } from "react-icons/tb"
 import { IoMdNotificationsOutline } from "react-icons/io"
 import { FiSettings } from "react-icons/fi"
 import { RiLogoutBoxRLine } from "react-icons/ri"
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth"
+import {
+  getAuth,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+} from "firebase/auth"
+import { getStorage, ref, uploadString, getDownloadURL } from "firebase/storage"
 import { Link, useNavigate } from "react-router-dom"
 import { Modal, Box, Typography } from "@mui/material"
 import Cropper from "react-cropper"
@@ -15,6 +21,7 @@ const Leftbar = (props) => {
   const nevigate = useNavigate()
 
   const auth = getAuth()
+  const storage = getStorage()
 
   const defaultSrc =
     "https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg"
@@ -85,9 +92,30 @@ const Leftbar = (props) => {
 
   const getCropData = () => {
     if (typeof cropper !== "undefined") {
-      console.log(cropper.getCroppedCanvas().toDataURL())
+      const storageRef = ref(storage, "aaa")
+      // Data URL string
+      // console.log(cropper.getCroppedCanvas().toDataURL())
+      const message4 = cropper.getCroppedCanvas().toDataURL()
+      uploadString(storageRef, message4, "data_url").then((snapshot) => {
+        console.log("Uploaded a data_url string!")
+        console.log(snapshot)
+        // Get the download URL
+        getDownloadURL(storageRef).then((url) => {
+          console.log(url)
+          updateProfile(auth.currentUser, {
+            photoURL: url,
+          })
+            .then(() => {
+              console.log("uploaded")
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+        })
+      })
     }
   }
+  console.log(auth.currentUser)
 
   return (
     <div className="leftbar">
@@ -95,7 +123,7 @@ const Leftbar = (props) => {
         {!auth.currentUser.photoURL ? (
           <img className="profilepic" src="assets/images/avatar.svg" alt="" />
         ) : (
-          <img className="profilepic" src="assets/images/avatar.svg" alt="" />
+          <img className="profilepic" src={auth.currentUser.photoURL} />
         )}
         <div className="overlay" onClick={handleModelOpen2}>
           <AiOutlineCloudUpload />
@@ -172,8 +200,12 @@ const Leftbar = (props) => {
                 ) : (
                   <img className="profilepic" src="assets/images/avatar.svg" />
                 )
+              ) : image ? (
+                <div className="img-preview"></div>
               ) : (
-                <img className="profilepic" src="assets/images/avatar.svg" />
+                // <img className="profilepic" src="assets/images/avatar.svg" />
+
+                <img className="profilepic" src={auth.currentUser.photoURL} />
               )}
             </div>
 
