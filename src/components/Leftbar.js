@@ -92,7 +92,7 @@ const Leftbar = (props) => {
 
   const getCropData = () => {
     if (typeof cropper !== "undefined") {
-      const storageRef = ref(storage, "aaa")
+      const storageRef = ref(storage, auth.currentUser.uid)
       // Data URL string
       // console.log(cropper.getCroppedCanvas().toDataURL())
       const message4 = cropper.getCroppedCanvas().toDataURL()
