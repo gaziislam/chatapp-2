@@ -23,19 +23,18 @@ const Leftbar = (props) => {
   const auth = getAuth()
   const storage = getStorage()
 
-  const defaultSrc =
-    "https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg"
-
-  const [image, setImage] = useState()
+  const [image, setImage] = useState(" ")
   const [cropData, setCropData] = useState("#")
   const [cropper, setCropper] = useState()
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [id, setId] = useState("")
+  const [createTime, setCreateTime] = useState(false)
   const [open, setOpen] = useState(false)
   const [open2, setOpen2] = useState(false)
-  const [createTime, setCreateTime] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [check, setCheck] = useState(false)
 
   let handleClose = () => {
     setOpen(false)
@@ -72,7 +71,7 @@ const Leftbar = (props) => {
         setCreateTime(user.metadata.creationTime)
       }
     })
-  }, [])
+  }, [check])
 
   let handleProfileUplod = (e) => {
     // console.log(e.target.files[0])
@@ -91,22 +90,20 @@ const Leftbar = (props) => {
   }
 
   const getCropData = () => {
+    setLoading(true)
     if (typeof cropper !== "undefined") {
       const storageRef = ref(storage, auth.currentUser.uid)
-      // Data URL string
-      // console.log(cropper.getCroppedCanvas().toDataURL())
       const message4 = cropper.getCroppedCanvas().toDataURL()
       uploadString(storageRef, message4, "data_url").then((snapshot) => {
-        console.log("Uploaded a data_url string!")
-        console.log(snapshot)
-        // Get the download URL
         getDownloadURL(storageRef).then((url) => {
-          console.log(url)
+          setLoading(false)
+          setOpen2(false)
+          setImage("")
           updateProfile(auth.currentUser, {
             photoURL: url,
           })
             .then(() => {
-              console.log("uploaded")
+              setCheck(!check)
             })
             .catch((error) => {
               console.log(error)
@@ -115,7 +112,6 @@ const Leftbar = (props) => {
       })
     }
   }
-  console.log(auth.currentUser)
 
   return (
     <div className="leftbar">
@@ -229,11 +225,16 @@ const Leftbar = (props) => {
               }}
               guides={true}
             />
-            {/* crop button stert */}
-            {image && (
-              <button onClick={getCropData}>Upload profile picture</button>
+
+            {image ? (
+              loading ? (
+                <button>Uploading...</button>
+              ) : (
+                <button onClick={getCropData}>Upload profile picture</button>
+              )
+            ) : (
+              ""
             )}
-            {/* crop button end */}
           </Typography>
         </Box>
       </Modal>
