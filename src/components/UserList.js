@@ -13,6 +13,7 @@ const UserList = () => {
   let [userlist, setUserlist] = useState([])
   const [friendReq, setFriendReq] = useState([])
   const [friend, setFriend] = useState([])
+  const [check, setCheck] = useState(false)
 
   useEffect(() => {
     const userlistRef = ref(db, "users/")
@@ -36,10 +37,10 @@ const UserList = () => {
 
       snapshot.forEach((item) => {
         userArr.push(item.val().receiverid + item.val().senderid)
+        setFriendReq(userArr)
       })
-      setFriendReq(userArr)
     })
-  }, [])
+  }, [check])
 
   useEffect(() => {
     const friendsRef = ref(db, "friends/")
@@ -48,12 +49,13 @@ const UserList = () => {
 
       snapshot.forEach((item) => {
         friendArr.push(item.val().receiverid + item.val().senderid)
+        setFriend(friendArr)
       })
-      setFriend(friendArr)
     })
   }, [])
 
   let handleFriendRequest = (info) => {
+    console.log(info)
     let friendReqRef = push(ref(db, "friendrequest/"))
     set(friendReqRef, {
       receiverid: info.userid,
@@ -61,6 +63,7 @@ const UserList = () => {
       sendername: auth.currentUser.displayName,
       receivername: info.name,
     })
+    setCheck(!check)
   }
 
   return (
@@ -71,6 +74,8 @@ const UserList = () => {
         (item) =>
           auth.currentUser.uid !== item.userid && (
             <div className="box">
+              {console.log("aa", item.userid)}
+              {console.log("bb", auth.currentUser.uid)}
               <div className="img">
                 <img src="assets/images/group1.jpg" alt="" />
               </div>
@@ -82,7 +87,7 @@ const UserList = () => {
               {friend.includes(item.userid + auth.currentUser.uid) ||
               friend.includes(auth.currentUser.uid + item.userid) ? (
                 <div className="button">
-                  <button onClick={() => handleFriendRequest(item)}>
+                  <button>
                     <PeopleAltIcon />
                   </button>
                 </div>
