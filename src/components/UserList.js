@@ -74,8 +74,6 @@ const UserList = () => {
         (item) =>
           auth.currentUser.uid !== item.userid && (
             <div className="box">
-              {console.log("aa", item.userid)}
-              {console.log("bb", auth.currentUser.uid)}
               <div className="img">
                 <img src="assets/images/group1.jpg" alt="" />
               </div>

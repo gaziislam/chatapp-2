@@ -8,6 +8,8 @@ import GroupList from "../components/GroupList"
 import FriendRequest from "../components/FriendRequest"
 import Friends from "../components/Friends"
 import UserList from "../components/UserList"
+import MyGroup from "../components/MyGroup"
+import BlockUser from "../components/BlockUser"
 
 const Home = () => {
   const auth = getAuth()
@@ -40,9 +42,11 @@ const Home = () => {
           </Grid>
           <Grid item xs={3}>
             <Friends />
+            <MyGroup />
           </Grid>
           <Grid item xs={3}>
             <UserList />
+            <BlockUser />
           </Grid>
         </Grid>
       ) : (

@@ -349,7 +349,12 @@ ul {
 }
 
 .friend-list {
-  height: 890px;
+  height: 468px;
+  padding: 17px 30px;
+}
+
+.my-group {
+  height: 380px;
   padding: 17px 30px;
 }
 
@@ -416,9 +421,16 @@ ul {
   font-family: "popins", sans-serif;
   font-size: 10px;
   font-weight: 500;
+  color: #4d4d4dde;
+}
+.my-group .box .button p {
+  font-family: "popins", sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  color: #4d4d4dde;
 }
 
-.group-list .box .button button {
+.group-list .button button {
   background: #5f35f5;
   color: #fff;
   padding: 5px 15px;
