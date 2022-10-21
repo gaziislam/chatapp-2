@@ -1,10 +1,18 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Modal, TextField } from "@mui/material"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
+import { getDatabase, ref, set, push, onValue } from "firebase/database"
+import { getAuth } from "firebase/auth"
 
 const GroupList = () => {
-  const [open, setOpen] = React.useState(false)
+  const db = getDatabase()
+  const auth = getAuth()
+
+  const [open, setOpen] = useState(false)
+  const [groupname, setGroupName] = useState("")
+  const [grouptagline, setGroupTagline] = useState("")
+  const [grouplist, setGrouplist] = useState([])
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   // Modal Style staet
@@ -25,6 +33,30 @@ const GroupList = () => {
   }
   // Modal Style end
 
+  // onClicks Start
+
+  let handleCreateGroup = () => {
+    set(push(ref(db, "groups")), {
+      groupname: groupname,
+      grouptagline: grouptagline,
+      adminid: auth.currentUser.uid,
+      adminname: auth.currentUser.displayName,
+    }).then(() => {
+      setOpen(false)
+    })
+  }
+
+  useEffect(() => {
+    let groupArr = []
+    const groupRef = ref(db, "groups")
+    onValue(groupRef, (snapshot) => {
+      snapshot.forEach((item) => {
+        groupArr.push(item.val())
+      })
+      setGrouplist(groupArr)
+    })
+  }, [])
+
   return (
     <div className="group-list">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -34,66 +66,26 @@ const GroupList = () => {
         </div>
       </div>
 
-      <div className="box">
-        <div className="img">
-          <img src="assets/images/group1.jpg" alt="" />
-        </div>
-        <div className="name">
-          <h1>Friends Reunion</h1>
-          <h4>Hi Guys, Wassup!</h4>
-        </div>
-        <div className="button">
-          <button>Join</button>
-        </div>
-      </div>
-      <div className="box">
-        <div className="img">
-          <img src="assets/images/group1.jpg" alt="" />
-        </div>
-        <div className="name">
-          <h1>Friends Reunion</h1>
-          <h4>Hi Guys, Wassup!</h4>
-        </div>
-        <div className="button">
-          <button>Join</button>
-        </div>
-      </div>
-      <div className="box">
-        <div className="img">
-          <img src="assets/images/group1.jpg" alt="" />
-        </div>
-        <div className="name">
-          <h1>Friends Reunion</h1>
-          <h4>Hi Guys, Wassup!</h4>
-        </div>
-        <div className="button">
-          <button>Join</button>
-        </div>
-      </div>
-      <div className="box">
-        <div className="img">
-          <img src="assets/images/group1.jpg" alt="" />
-        </div>
-        <div className="name">
-          <h1>Friends Reunion</h1>
-          <h4>Hi Guys, Wassup!</h4>
-        </div>
-        <div className="button">
-          <button>Join</button>
-        </div>
-      </div>
-      <div className="box">
-        <div className="img">
-          <img src="assets/images/group1.jpg" alt="" />
-        </div>
-        <div className="name">
-          <h1>Friends Reunion</h1>
-          <h4>Hi Guys, Wassup!</h4>
-        </div>
-        <div className="button">
-          <button>Join</button>
-        </div>
-      </div>
+      {grouplist.map(
+        (item) =>
+          item.adminid !== auth.currentUser.uid && (
+            <div className="box">
+              <div className="img">
+                <img src="assets/images/group1.jpg" alt="" />
+              </div>
+              <div className="name">
+                <h1>{item.groupname}</h1>
+                <h4>{item.grouptagline}</h4>
+                {/* <h4>Admin:{item.adminname}</h4> */}
+              </div>
+              <div className="button">
+                <button>Join</button>
+              </div>
+            </div>
+          )
+      )}
+
+      {/* Modal */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -110,15 +102,21 @@ const GroupList = () => {
               label="Group Name"
               variant="outlined"
               sx={inputstyle}
+              onChange={(e) => {
+                setGroupName(e.target.value)
+              }}
             />
             <TextField
               id="outlined-basic"
               label="Group Tag Line"
               variant="outlined"
               sx={inputstyle}
+              onChange={(e) => {
+                setGroupTagline(e.target.value)
+              }}
             />
-            <div className="button">
-              <button onClick={handleOpen}>Create Group</button>
+            <div className="group-button">
+              <button onClick={handleCreateGroup}>Create Group</button>
             </div>
           </Typography>
         </Box>
