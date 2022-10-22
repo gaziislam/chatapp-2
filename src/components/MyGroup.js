@@ -13,7 +13,14 @@ const MyGroup = () => {
     const groupRef = ref(db, "groups")
     onValue(groupRef, (snapshot) => {
       snapshot.forEach((item) => {
-        groupArr.push(item.val())
+        let groupinfo = {
+          adminid: item.val().adminid,
+          adminname: item.val().adminname,
+          groupname: item.val().groupname,
+          grouptagline: item.val().grouptagline,
+          key: item.key,
+        }
+        groupArr.push(groupinfo)
       })
       setGrouplist(groupArr)
     })
@@ -36,7 +43,7 @@ const MyGroup = () => {
                 {/* <h4>Admin:{item.adminname}</h4> */}
               </div>
               <div className="button">
-                <button>Join</button>
+                <p>{item.date}</p>
               </div>
             </div>
           )

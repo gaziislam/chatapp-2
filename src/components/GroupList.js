@@ -13,6 +13,7 @@ const GroupList = () => {
   const [groupname, setGroupName] = useState("")
   const [grouptagline, setGroupTagline] = useState("")
   const [grouplist, setGrouplist] = useState([])
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   // Modal Style staet
@@ -46,12 +47,29 @@ const GroupList = () => {
     })
   }
 
+  let handleGroupJoin = (id, gid) => {
+    set(push(ref(db, "groupjoinrequest")), {
+      adminid: id,
+      groupid: gid,
+      userid: auth.currentUser.uid,
+      username: auth.currentUser.displayName,
+      userprofile: auth.currentUser.photoURL,
+    })
+  }
+
   useEffect(() => {
     let groupArr = []
     const groupRef = ref(db, "groups")
     onValue(groupRef, (snapshot) => {
       snapshot.forEach((item) => {
-        groupArr.push(item.val())
+        let groupinfo = {
+          adminid: item.val().adminid,
+          adminname: item.val().adminname,
+          groupname: item.val().groupname,
+          grouptagline: item.val().grouptagline,
+          key: item.key,
+        }
+        groupArr.push(groupinfo)
       })
       setGrouplist(groupArr)
     })
@@ -76,10 +94,12 @@ const GroupList = () => {
               <div className="name">
                 <h1>{item.groupname}</h1>
                 <h4>{item.grouptagline}</h4>
-                {/* <h4>Admin:{item.adminname}</h4> */}
+                {/* <h4>Admin:{item.key}</h4> */}
               </div>
               <div className="button">
-                <button>Join</button>
+                <button onClick={() => handleGroupJoin(item.adminid, item.key)}>
+                  Join
+                </button>
               </div>
             </div>
           )
