@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {
   Grid,
   TextField,
@@ -8,7 +8,7 @@ import {
   IconButton,
 } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
 import {
   getAuth,
@@ -19,8 +19,12 @@ import {
 } from "firebase/auth"
 
 const Login = () => {
+  const location = useLocation()
+  console.log(location.state)
   const auth = getAuth()
-  const [open, setOpen] = React.useState(false)
+
+  const [open, setOpen] = useState(false)
+  const [open2, setOpen2] = useState(true)
   const nevigate = useNavigate()
   let [email, setEmail] = useState("")
   let [password, setPassword] = useState("")
@@ -34,6 +38,7 @@ const Login = () => {
   let [checkpassword, setCheckpassword] = useState(false)
   let [wrongemailerr, setWrongemailerr] = useState("")
   let [wrongpassworderr, setWrongpassworderr] = useState("")
+  let [msg, setMsg] = useState("")
 
   const handleSubmit = () => {
     if (!email) {
@@ -123,6 +128,15 @@ const Login = () => {
       })
   }
 
+  // Password Reset function
+
+  useEffect(() => {
+    if (location.state !== null) {
+      setMsg(location.state.msg)
+      setOpen2(true)
+    }
+  }, [])
+
   return (
     <section className="registration-part login-part">
       <Grid container spacing={2}>
@@ -130,6 +144,27 @@ const Login = () => {
           <div className="box">
             <div className="left">
               <h2>Login to your account</h2>
+              {location.state && (
+                <Collapse in={open2}>
+                  <Alert
+                    action={
+                      <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                          setOpen2(false)
+                        }}
+                      >
+                        <CloseIcon fontSize="inherit" />
+                      </IconButton>
+                    }
+                    sx={{ mb: 2 }}
+                  >
+                    {msg}
+                  </Alert>
+                </Collapse>
+              )}
 
               <div className="loginoption">
                 <div onClick={handleGoogleSignin} className="option">
@@ -162,6 +197,7 @@ const Login = () => {
                       }}
                     >
                       <CloseIcon fontSize="inherit" />
+                      {msg}
                     </IconButton>
                   }
                   sx={{ mb: 2 }}
@@ -218,6 +254,9 @@ const Login = () => {
 
               <p className="msg">
                 Dont have an account? <Link to="/">Sign Up</Link>
+              </p>
+              <p className="forgot">
+                Forgot Password? <Link to="/reset"> Click here </Link>
               </p>
             </div>
           </div>

@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import Search from "./components/Search"
 import { BsToggleOff, BsToggleOn } from "react-icons/bs"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
+import ResetPassword from "./pages/ResetPassword"
 
 function App() {
   const auth = getAuth()
@@ -57,6 +58,7 @@ function App() {
           <Route path="/" element={<Registration />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/home" element={<Home />}></Route>
+          <Route path="/reset" element={<ResetPassword />}></Route>
         </Routes>
       </div>
     </>
