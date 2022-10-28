@@ -130,11 +130,15 @@ const Leftbar = (props) => {
       <div className="icons">
         <ul>
           <li className={props.active == "home" && "active"}>
-            <AiOutlineHome className="icon" />
+            <Link to="/home">
+              <AiOutlineHome className="icon" />
+            </Link>
           </li>
 
           <li className={props.active == "msg" && "active"}>
-            <TbMessageCircle className="icon" />
+            <Link to="/message">
+              <TbMessageCircle className="icon" />
+            </Link>
           </li>
           <li className={props.active == "notification" && "active"}>
             <IoMdNotificationsOutline className="icon" />

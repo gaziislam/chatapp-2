@@ -20,7 +20,7 @@ import {
 
 const Login = () => {
   const location = useLocation()
-  console.log(location.state)
+
   const auth = getAuth()
 
   const [open, setOpen] = useState(false)
@@ -145,10 +145,12 @@ const Login = () => {
             <div className="left">
               <h2>Login to your account</h2>
               {location.state && (
-                <Collapse in={open2}>
+                <Collapse in={open2} className="col-icon">
                   <Alert
+                    style={{ marginTop: "30px" }}
                     action={
                       <IconButton
+                        style={{ marginTop: "0", background: "none" }}
                         aria-label="close"
                         color="inherit"
                         size="small"

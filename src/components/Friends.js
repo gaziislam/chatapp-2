@@ -3,8 +3,9 @@ import { getDatabase, ref, onValue } from "firebase/database"
 import { useEffect, useState } from "react"
 import { getAuth } from "firebase/auth"
 import { Alert } from "@mui/material"
+import { TbMessageCircle } from "react-icons/tb"
 
-const Friends = () => {
+const Friends = (props) => {
   const db = getDatabase()
   const auth = getAuth()
 
@@ -56,7 +57,13 @@ const Friends = () => {
             <h4>Hi Guys, Wassup!</h4>
           </div>
           <div className="button">
-            <p>{item.date}</p>
+            {props.item == "date" ? (
+              <p>{item.date}</p>
+            ) : (
+              <button style={{ fontSize: "20px" }}>
+                <TbMessageCircle />
+              </button>
+            )}
           </div>
         </div>
       ))}
