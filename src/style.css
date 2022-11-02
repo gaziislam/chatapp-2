@@ -358,13 +358,12 @@ ul {
   -webkit-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
-  height: 380px;
+  height: 45vh;
   overflow-y: scroll;
   margin-top: 43px;
 }
-
-.friend-list {
-  height: 468px;
+.group-list .friend-list {
+  height: 48vh;
   padding: 17px 30px;
 }
 
@@ -540,18 +539,20 @@ ul {
   -webkit-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 5px 23px 0px rgba(0, 0, 0, 0.3);
-  height: 380px;
-  overflow-y: scroll;
+  height: 100vh;
   margin-top: 43px;
 }
 
 .chat .top-area {
   display: flex;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.25);
+  padding-bottom: 25px;
 }
 
 .chat .top-area .info {
   display: flex;
   align-items: center;
+  width: 90%;
 }
 
 .chat .img {
@@ -585,4 +586,55 @@ ul {
   font-family: "popins", sans-serif;
   font-size: 14px;
   font-weight: 400;
+}
+
+.chat .dots {
+  font-size: 25px;
+  width: 10%;
+  display: flex;
+  color: #5f35f5;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat .chat-area {
+  height: 70vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  padding-bottom: 47px;
+  padding-right: 25px;
+}
+
+.chat .msg {
+  display: flex;
+  position: relative;
+  margin-top: 60px;
+}
+
+.chat .msg p {
+  font-family: "popins", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-block;
+  padding: 13px 53px;
+  border-radius: 10px;
+}
+
+.chat .msg .date {
+  font-family: "popins", sans-serif;
+  font-size: 12px !important;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.356);
+  position: absolute;
+  bottom: -38px;
+}
+
+.chat .chat-img {
+  padding: 10px;
+  width: 200px;
+}
+
+.chat .chat-img img {
+  width: 100%;
 }
