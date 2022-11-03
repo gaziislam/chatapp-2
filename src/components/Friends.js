@@ -4,8 +4,14 @@ import { useEffect, useState } from "react"
 import { getAuth } from "firebase/auth"
 import { Alert } from "@mui/material"
 import { TbMessageCircle } from "react-icons/tb"
+import { useSelector, useDispatch } from "react-redux"
+import { activeChat } from "../slice/activeChatSlice"
 
 const Friends = (props) => {
+  const count = useSelector((state) => state.activeChat.active)
+  console.log(count)
+  const dispatch = useDispatch()
+
   const db = getDatabase()
   const auth = getAuth()
 
@@ -33,6 +39,10 @@ const Friends = (props) => {
     })
   }, [])
 
+  let handleActiveChat = (item) => {
+    dispatch(activeChat(item))
+  }
+
   return (
     <div className="group-list friend-list">
       <h2>Friends ({friends.length}) </h2>
@@ -44,7 +54,7 @@ const Friends = (props) => {
       )}
 
       {friends.map((item) => (
-        <div className="box">
+        <div className="box" onClick={() => handleActiveChat(item)}>
           <div className="img">
             <img src="assets/images/group1.jpg" alt="" />
           </div>

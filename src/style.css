@@ -638,3 +638,41 @@ ul {
 .chat .chat-img img {
   width: 100%;
 }
+
+.msg-write {
+  position: relative;
+}
+
+.msg-write input {
+  width: 88%;
+  background: #f1f1f1;
+  border: 0;
+  padding: 15px;
+  margin-top: 35px;
+  border-radius: 10px;
+}
+
+.msg-write input::placeholder {
+  font-family: "popins", sans-serif;
+  font-size: 16px !important;
+  font-weight: 500;
+}
+
+.msg-write button {
+  background: #5f35f5;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px;
+  margin-left: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.msg-write .camera {
+  position: absolute;
+  top: 50px;
+  right: 120px;
+  font-size: 22px;
+  color: rgba(0, 0, 0, 0.5);
+}

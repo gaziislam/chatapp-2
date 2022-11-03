@@ -1,5 +1,7 @@
 import React from "react"
 import { BiDotsVerticalRounded } from "react-icons/bi"
+import { IoIosSend } from "react-icons/io"
+import { AiOutlineCamera } from "react-icons/ai"
 
 const Chat = () => {
   return (
@@ -42,6 +44,15 @@ const Chat = () => {
             <p className="date" style={dateRicive}>
               Today, 2:30pm
             </p>
+          </div>
+        </div>
+        <div className="msg-box">
+          <div className="msg-write">
+            <input type="text" placeholder="Message" />
+            <AiOutlineCamera className="camera" />
+            <button>
+              <IoIosSend />
+            </button>
           </div>
         </div>
       </div>

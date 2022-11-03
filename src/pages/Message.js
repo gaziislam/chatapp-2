@@ -10,6 +10,7 @@ import MyGroup from "../components/MyGroup"
 import BlockUser from "../components/BlockUser"
 import JoinGroupList from "../components/JoinGroupList"
 import Chat from "../components/Chat"
+import { useSelector, useDispatch } from "react-redux"
 
 const Message = () => {
   return (
