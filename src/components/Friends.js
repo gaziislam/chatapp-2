@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from "react-redux"
 import { activeChat } from "../slice/activeChatSlice"
 
 const Friends = (props) => {
-  const count = useSelector((state) => state.activeChat.active)
-  console.log(count)
   const dispatch = useDispatch()
 
   const db = getDatabase()
@@ -40,7 +38,16 @@ const Friends = (props) => {
   }, [])
 
   let handleActiveChat = (item) => {
-    dispatch(activeChat(item))
+    let userInfo = {}
+    console.log(userInfo)
+    if (item.receiverid == auth.currentUser.uid) {
+      userInfo.id = item.senderid
+      userInfo.name = item.sendername
+    } else {
+      userInfo.id = item.receiverid
+      userInfo.name = item.receivername
+    }
+    dispatch(activeChat(userInfo))
   }
 
   return (

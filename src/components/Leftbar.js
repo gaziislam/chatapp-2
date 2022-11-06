@@ -116,11 +116,11 @@ const Leftbar = (props) => {
   return (
     <div className="leftbar">
       <div className="profilepicbox">
-        {!auth.currentUser.photoURL ? (
+        {/* {!auth.currentUser.photoURL ? (
           <img className="profilepic" src="assets/images/avatar.svg" alt="" />
         ) : (
           <img className="profilepic" src={auth.currentUser.photoURL} />
-        )}
+        )} */}
         <div className="overlay" onClick={handleModelOpen2}>
           <AiOutlineCloudUpload />
         </div>
@@ -194,7 +194,7 @@ const Leftbar = (props) => {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <div className="profilepicbox">
-              {!auth.currentUser.photoURL ? (
+              {/* {!auth.currentUser.photoURL ? (
                 image ? (
                   <div className="img-preview"></div>
                 ) : (
@@ -206,7 +206,7 @@ const Leftbar = (props) => {
                 // <img className="profilepic" src="assets/images/avatar.svg" />
 
                 <img className="profilepic" src={auth.currentUser.photoURL} />
-              )}
+              )} */}
             </div>
 
             <input type="file" onChange={handleProfileUplod} />

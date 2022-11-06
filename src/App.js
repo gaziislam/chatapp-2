@@ -13,7 +13,6 @@ function App() {
   const auth = getAuth()
   let [dl, setDl] = useState(false)
   let [show, setShow] = useState(false)
-  let [test, setTest] = useState()
 
   let handleDarkLight = () => {
     setDl(!dl)
@@ -21,7 +20,6 @@ function App() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setTest(user.uid)
       if (user) {
         setShow(true)
       } else {
@@ -29,8 +27,6 @@ function App() {
       }
     })
   }, [])
-
-  console.log(test)
 
   return (
     <>
