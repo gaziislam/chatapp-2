@@ -39,11 +39,13 @@ const Friends = (props) => {
 
   let handleActiveChat = (item) => {
     let userInfo = {}
-    console.log(userInfo)
+
     if (item.receiverid == auth.currentUser.uid) {
+      userInfo.status = "single"
       userInfo.id = item.senderid
       userInfo.name = item.sendername
     } else {
+      userInfo.status = "single"
       userInfo.id = item.receiverid
       userInfo.name = item.receivername
     }

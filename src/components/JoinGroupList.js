@@ -32,6 +32,7 @@ const JoinGroupList = () => {
 
   let handleActiveChat = (item) => {
     let userInfo = {
+      status: "group",
       name: item.groupname,
       groupid: item.key,
       groupadmin: item.adminid,

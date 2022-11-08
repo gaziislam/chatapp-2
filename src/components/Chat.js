@@ -1,12 +1,39 @@
-import React from "react"
+import React, { useState } from "react"
 import { BiDotsVerticalRounded } from "react-icons/bi"
 import { IoIosSend } from "react-icons/io"
 import { AiOutlineCamera } from "react-icons/ai"
 import { useSelector, useDispatch } from "react-redux"
+import { getDatabase, ref, set, push } from "firebase/database"
+
+import { getAuth } from "firebase/auth"
 
 const Chat = () => {
+  const auth = getAuth()
+  const db = getDatabase()
   const user = useSelector((state) => state.activeChat.active)
-  console.log(user)
+
+  let [msg, setMsg] = useState("")
+
+  let handleMsg = (e) => {
+    setMsg(e.target.value)
+  }
+
+  let handleMsgSend = () => {
+    if (msg != "") {
+      if (user.status == "group") {
+        console.log("This is group msg")
+      } else {
+        set(push(ref(db, "singlemsg")), {
+          whosendid: auth.currentUser.uid,
+          whosendname: auth.currentUser.displayName,
+          whoreceivedname: user.name,
+          whoreceive: user.id,
+          msg: msg,
+        })
+      }
+    }
+  }
+
   return (
     <>
       <div className="chat">
@@ -51,9 +78,9 @@ const Chat = () => {
         </div>
         <div className="msg-box">
           <div className="msg-write">
-            <input type="text" placeholder="Message" />
+            <input onChange={handleMsg} type="text" placeholder="Message" />
             <AiOutlineCamera className="camera" />
-            <button>
+            <button onClick={handleMsgSend}>
               <IoIosSend />
             </button>
           </div>
