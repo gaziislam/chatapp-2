@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { BiDotsVerticalRounded } from "react-icons/bi"
 import { IoIosSend } from "react-icons/io"
 import { AiOutlineCamera } from "react-icons/ai"
 import { useSelector, useDispatch } from "react-redux"
-import { getDatabase, ref, set, push } from "firebase/database"
+import { getDatabase, ref, set, push, onValue } from "firebase/database"
 
 import { getAuth } from "firebase/auth"
 
@@ -13,6 +13,8 @@ const Chat = () => {
   const user = useSelector((state) => state.activeChat.active)
 
   let [msg, setMsg] = useState("")
+  let [msglist, setMsgList] = useState([])
+  let [check, setCheck] = useState(false)
 
   let handleMsg = (e) => {
     setMsg(e.target.value)
@@ -29,10 +31,20 @@ const Chat = () => {
           whoreceivedname: user.name,
           whoreceive: user.id,
           msg: msg,
-        })
+        }).then(() => setCheck(!check))
       }
     }
   }
+
+  useEffect(() => {
+    onValue(ref(db, "singlemsg"), (snapshot) => {
+      let msgArr = []
+      snapshot.forEach((item) => {
+        msgArr.push(item.val())
+      })
+      setMsgList(msgArr)
+    })
+  }, [])
 
   return (
     <>
@@ -53,28 +65,40 @@ const Chat = () => {
           </div>
         </div>
         <div className="chat-area">
-          <div className="msg" style={alignLeft}>
-            <p style={msgRecive}>Hey there</p>
-            <p className="date" style={dateRicive}>
-              Today, 2:30pm
-            </p>
-          </div>
-          <div className="msg" style={alignRight}>
+          {msglist.map((item) =>
+            item.whosendid == auth.currentUser.uid ? (
+              <div className="msg" style={alignRight}>
+                <p style={msgSend}> {item.msg} </p>
+                <p className="date" style={dateSend}>
+                  Today, 2:30pm
+                </p>
+              </div>
+            ) : (
+              <div className="msg" style={alignLeft}>
+                <p style={msgRecive}>{item.msg}</p>
+                <p className="date" style={dateRicive}>
+                  Today, 2:30pm
+                </p>
+              </div>
+            )
+          )}
+
+          {/* <div className="msg" style={alignRight}>
             <div style={msgSend} className="chat-img">
               <img src="assets/images/profile3.jpg" alt="" />
             </div>
             <p className="date" style={dateSend}>
               Today, 2:40pm
             </p>
-          </div>
-          <div className="msg" style={alignLeft}>
+          </div> */}
+          {/* <div className="msg" style={alignLeft}>
             <div style={msgRecive} className="chat-img">
               <img src="assets/images/profile3.jpg" alt="" />
             </div>
             <p className="date" style={dateRicive}>
               Today, 2:30pm
             </p>
-          </div>
+          </div> */}
         </div>
         <div className="msg-box">
           <div className="msg-write">
