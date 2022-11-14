@@ -14,7 +14,6 @@ const Chat = () => {
 
   let [msg, setMsg] = useState("")
   let [msglist, setMsgList] = useState([])
-  let [check, setCheck] = useState(false)
 
   let handleMsg = (e) => {
     setMsg(e.target.value)
@@ -31,7 +30,7 @@ const Chat = () => {
           whoreceivedname: user.name,
           whoreceive: user.id,
           msg: msg,
-        }).then(() => setCheck(!check))
+        })
       }
     }
   }
