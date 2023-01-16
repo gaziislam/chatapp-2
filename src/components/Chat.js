@@ -70,7 +70,7 @@ const Chat = () => {
       })
       setMsgList(msgArr)
     })
-  })
+  }, [user.id])
 
   let handleSingleImageUpload = (e) => {
     setFile(e.target.files[0])
@@ -145,7 +145,7 @@ const Chat = () => {
                   <div className="msg" style={alignRight}>
                     <p style={msgSend}> {item.msg} </p>
                     <p className="date" style={dateSend}>
-                      {moment(item.date, "YYYYMMDD").fromNow()}
+                      {moment(item.date, "YYYYMMDD hh:mm").fromNow()}
                     </p>
                   </div>
                 </>
@@ -157,7 +157,7 @@ const Chat = () => {
                       src={item.img}
                     />
                     <p className="date" style={dateSend}>
-                      {moment(item.date, "YYYYMMDD").fromNow()}
+                      {moment(item.date, "YYYYMMDD hh:mm").fromNow()}
                     </p>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ const Chat = () => {
               <div className="msg" style={alignLeft}>
                 <p style={msgRecive}>{item.msg}</p>
                 <p className="date" style={dateRicive}>
-                  {moment(item.date, "YYYYMMDD").fromNow()}
+                  {moment(item.date, "YYYYMMDD hh:mm").fromNow()}
                 </p>
               </div>
             ) : (
@@ -177,7 +177,7 @@ const Chat = () => {
                     src={item.img}
                   />
                   <p className="date" style={dateSend}>
-                    {moment(item.date, "YYYYMMDD").fromNow()}
+                    {moment(item.date, "YYYYMMDD hh:mm").fromNow()}
                   </p>
                 </div>
               </div>

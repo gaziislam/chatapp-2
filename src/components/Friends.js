@@ -83,6 +83,8 @@ const Friends = (props) => {
                 <TbMessageCircle />
               </button>
             )}
+
+            <button style={{ marginLeft: "10px" }}>Block</button>
           </div>
         </div>
       ))}
