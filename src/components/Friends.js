@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { getDatabase, ref, onValue } from "firebase/database"
+import { getDatabase, set, ref, onValue, push } from "firebase/database"
 
 import { getAuth } from "firebase/auth"
 import { Alert } from "@mui/material"
@@ -52,6 +52,22 @@ const Friends = (props) => {
     dispatch(activeChat(userInfo))
   }
 
+  let handleBlock = (item) => {
+    auth.currentUser.uid == item.senderid
+      ? set(ref(db, "block"), {
+          block: item.receivername,
+          blockid: item.receiverid,
+          blockby: item.sendername,
+          blockbyid: item.senderid,
+        })
+      : set(ref(db, "block"), {
+          block: item.sendername,
+          blockid: item.senderid,
+          blockby: item.receivername,
+          blockbyid: item.receiverid,
+        })
+  }
+
   return (
     <div className="group-list friend-list">
       <h2>Friends ({friends.length}) </h2>
@@ -84,7 +100,12 @@ const Friends = (props) => {
               </button>
             )}
 
-            <button style={{ marginLeft: "10px" }}>Block</button>
+            <button
+              onClick={() => handleBlock(item)}
+              style={{ marginLeft: "10px" }}
+            >
+              Block
+            </button>
           </div>
         </div>
       ))}
